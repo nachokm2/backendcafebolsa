@@ -1,11 +1,11 @@
 const db = require('../config/database');
 
-const createSale = async ({ subtotal, taxRate, taxAmount, total, userId, sessionId, cashierName, customerId }, client) => {
+const createSale = async ({ subtotal, taxAmount, total, userId, sessionId, cashierName, customerId }, client) => {
   const result = await client.query(
-    `INSERT INTO sales (subtotal, tax_rate, tax_amount, total, user_id, session_id, cashier_name, customer_id)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    `INSERT INTO sales (subtotal, tax_amount, total, user_id, session_id, cashier_name, customer_id)
+     VALUES ($1, $2, $3, $4, $5, $6, $7)
      RETURNING *`,
-    [subtotal, taxRate, taxAmount, total, userId || null, sessionId || null, cashierName || null, customerId || null]
+    [subtotal, taxAmount, total, userId || null, sessionId || null, cashierName || null, customerId || null]
   );
   return result.rows[0];
 };
