@@ -22,7 +22,7 @@ const updatePrice = async (id, newPrice, client = null) => {
   const executor = client || db;
   const result = await executor.query(
     `UPDATE products
-     SET current_price = $1, updated_at = NOW()
+     SET current_price = $1
      WHERE id = $2
      RETURNING *`,
     [newPrice, id]
@@ -34,7 +34,7 @@ const updateLastSaleAt = async (id, client = null) => {
   const executor = client || db;
   const result = await executor.query(
     `UPDATE products
-     SET last_sale_at = NOW(), updated_at = NOW()
+     SET last_sale_at = NOW()
      WHERE id = $1
      RETURNING id`,
     [id]
